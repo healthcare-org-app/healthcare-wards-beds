@@ -70,6 +70,7 @@ def build_blueprint(svc) -> Blueprint:
     def create_record():
         payload = request.get_json(silent=True) or {}
         payload.pop("id", None)
+
         row = db.query_one(
             f"INSERT INTO {TABLE} (data) VALUES (%s) RETURNING *",
             (Json(payload),),
