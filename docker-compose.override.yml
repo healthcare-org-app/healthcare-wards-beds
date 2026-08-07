@@ -1,0 +1,24 @@
+services:
+  wards-beds-service:
+    build: .
+    container_name: ${NAME_UNDERSCORE}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://healthcare:healthcare_dev@postgres:5432/identity
+      KAFKA_BOOTSTRAP: kafka:9092
+      SERVICE_HOST_MODE: docker
+      PORT_FACILITIES_SERVICE: "9200"
+      PORT_AUDIT_LOG_SERVICE: "8007"
+      LOG_LEVEL: INFO
+    ports:
+      - "9201:9201"
+    networks:
+      - healthcare_net
+    volumes:
+      - ../../libs/py-healthcare-common:/opt/py-healthcare-common:ro
+    command: >
+      sh -c "pip install -e /opt/py-healthcare-common && python -m app.main"

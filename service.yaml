@@ -1,0 +1,12 @@
+name: wards-beds-service
+port: 9201
+lang: python
+description: "wards-beds-service \u2014 domain: identity"
+http_deps:
+- facilities-service
+- audit-log-service
+publishes:
+- audit.event
+subscribes:
+- encounter.started
+- encounter.ended
