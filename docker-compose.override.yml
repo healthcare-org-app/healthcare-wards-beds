@@ -21,4 +21,4 @@ services:
     volumes:
       - ../../libs/py-healthcare-common:/opt/py-healthcare-common:ro
     command: >
-      sh -c "pip install -e /opt/py-healthcare-common && python -m app.main"
+      sh -c "cp -r /opt/py-healthcare-common /tmp/lib && pip install --quiet /tmp/lib && python -m app.main"
