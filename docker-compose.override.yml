@@ -1,7 +1,7 @@
 services:
   wards-beds-service:
     build: .
-    container_name: ${NAME_UNDERSCORE}
+    container_name: wards_beds_service
     depends_on:
       postgres:
         condition: service_healthy
